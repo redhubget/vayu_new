@@ -51,7 +51,7 @@ export default function Hero() {
       >
         {/* Replace with your actual engine image */}
         <img
-          src="/products/trishul/engine.png"
+          src="/products/trishul/engine.jpeg"
           alt="TRISHUL Engine"
           style={styles.image}
         />
