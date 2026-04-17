@@ -1,3 +1,9 @@
-export default function Page() {
-  return <h1>Home Page</h1>;
+import Hero from "../../components/sections/Hero.jsx";
+
+export default function Home() {
+  return (
+    <>
+      <Hero />
+    </>
+  );
 }
