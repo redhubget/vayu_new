@@ -1,30 +1,33 @@
 import { motion } from "framer-motion";
 
-// This is your custom jet engine style loader
 export default function Loader() {
   return (
     <div style={styles.container}>
       
-      {/* Outer ring */}
-      <motion.div
-        style={styles.outer}
-        animate={{ rotate: 360 }}
-        transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
-      />
+      {/* Outer casing */}
+      <div style={styles.casing}>
 
-      {/* Inner core (faster spin like turbine spool) */}
-      <motion.div
-        style={styles.inner}
-        animate={{ rotate: -360 }}
-        transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-      />
+        {/* Turbine blades */}
+        <motion.div
+          style={styles.blades}
+          animate={{ rotate: 360 }}
+          transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+        />
 
-      <p style={styles.text}>Initializing Propulsion System...</p>
+        {/* Inner core */}
+        <motion.div
+          style={styles.core}
+          animate={{ rotate: -360 }}
+          transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+        />
+
+      </div>
+
+      <p style={styles.text}>Spooling Engine...</p>
     </div>
   );
 }
 
-// Styles (clean + light theme)
 const styles = {
   container: {
     height: "100vh",
@@ -34,22 +37,57 @@ const styles = {
     alignItems: "center",
     background: "#ffffff"
   },
-  outer: {
-    width: "120px",
-    height: "120px",
-    border: "6px solid #d0d0d0",
-    borderTop: "6px solid #0077ff",
+
+  casing: {
+    width: "140px",
+    height: "140px",
     borderRadius: "50%",
-    marginBottom: "20px"
+    border: "6px solid #ddd",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative"
   },
-  inner: {
-    position: "absolute",
-    width: "60px",
-    height: "60px",
-    border: "4px solid #ccc",
-    borderTop: "4px solid #00aaff",
-    borderRadius: "50%"
+
+  // Blade pattern using conic gradient
+  blades: {
+    width: "100px",
+    height: "100px",
+    borderRadius: "50%",
+    background: `
+      conic-gradient(
+        #999 0deg,
+        #ccc 20deg,
+        #999 40deg,
+        #ccc 60deg,
+        #999 80deg,
+        #ccc 100deg,
+        #999 120deg,
+        #ccc 140deg,
+        #999 160deg,
+        #ccc 180deg,
+        #999 200deg,
+        #ccc 220deg,
+        #999 240deg,
+        #ccc 260deg,
+        #999 280deg,
+        #ccc 300deg,
+        #999 320deg,
+        #ccc 340deg,
+        #999 360deg
+      )
+    `,
+    position: "absolute"
   },
+
+  core: {
+    width: "40px",
+    height: "40px",
+    borderRadius: "50%",
+    background: "linear-gradient(145deg, #bbb, #eee)",
+    position: "absolute"
+  },
+
   text: {
     marginTop: "20px",
     fontSize: "14px",
