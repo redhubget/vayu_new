@@ -3,28 +3,77 @@ import { motion } from "framer-motion";
 export default function Loader() {
   return (
     <div style={styles.container}>
-      
-      {/* Outer casing */}
-      <div style={styles.casing}>
 
-        {/* Turbine blades */}
-        <motion.div
-          style={styles.blades}
+      {/* ENGINE CASING */}
+      <div style={styles.engine}>
+
+        {/* OUTER COMPRESSOR BLADES */}
+        <motion.svg
+          width="160"
+          height="160"
+          viewBox="0 0 200 200"
+          style={styles.layer}
           animate={{ rotate: 360 }}
-          transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-        />
+          transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
+        >
+          {generateBlades(16, 70, 95)}
+        </motion.svg>
 
-        {/* Inner core */}
-        <motion.div
-          style={styles.core}
+        {/* INNER COMPRESSOR BLADES */}
+        <motion.svg
+          width="120"
+          height="120"
+          viewBox="0 0 200 200"
+          style={styles.layer}
           animate={{ rotate: -360 }}
-          transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-        />
+          transition={{ repeat: Infinity, duration: 1.2, ease: "linear" }}
+        >
+          {generateBlades(12, 50, 70)}
+        </motion.svg>
+
+        {/* HUB */}
+        <div style={styles.hub} />
 
       </div>
 
-      <p style={styles.text}>Spooling Engine...</p>
+      <p style={styles.text}>Engine Spooling...</p>
     </div>
+  );
+}
+
+/* 🔧 Function to generate blade shapes */
+function generateBlades(count, innerR, outerR) {
+  const blades = [];
+
+  for (let i = 0; i < count; i++) {
+    const angle = (i * 360) / count;
+
+    blades.push(
+      <g key={i} transform={`rotate(${angle} 100 100)`}>
+        <path
+          d={`
+            M100 ${100 - innerR}
+            L110 ${100 - outerR}
+            L90 ${100 - outerR}
+            Z
+          `}
+          fill="url(#metal)"
+        />
+      </g>
+    );
+  }
+
+  return (
+    <>
+      <defs>
+        <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#aaa" />
+          <stop offset="50%" stopColor="#eee" />
+          <stop offset="100%" stopColor="#888" />
+        </linearGradient>
+      </defs>
+      {blades}
+    </>
   );
 }
 
@@ -38,53 +87,27 @@ const styles = {
     background: "#ffffff"
   },
 
-  casing: {
-    width: "140px",
-    height: "140px",
+  engine: {
+    width: "180px",
+    height: "180px",
     borderRadius: "50%",
     border: "6px solid #ddd",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    position: "relative"
+    position: "relative",
+    boxShadow: "inset 0 0 20px rgba(0,0,0,0.1)"
   },
 
-  // Blade pattern using conic gradient
-  blades: {
-    width: "100px",
-    height: "100px",
-    borderRadius: "50%",
-    background: `
-      conic-gradient(
-        #999 0deg,
-        #ccc 20deg,
-        #999 40deg,
-        #ccc 60deg,
-        #999 80deg,
-        #ccc 100deg,
-        #999 120deg,
-        #ccc 140deg,
-        #999 160deg,
-        #ccc 180deg,
-        #999 200deg,
-        #ccc 220deg,
-        #999 240deg,
-        #ccc 260deg,
-        #999 280deg,
-        #ccc 300deg,
-        #999 320deg,
-        #ccc 340deg,
-        #999 360deg
-      )
-    `,
+  layer: {
     position: "absolute"
   },
 
-  core: {
+  hub: {
     width: "40px",
     height: "40px",
     borderRadius: "50%",
-    background: "linear-gradient(145deg, #bbb, #eee)",
+    background: "radial-gradient(circle, #bbb, #eee)",
     position: "absolute"
   },
 
