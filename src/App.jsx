@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home/Home.jsx";
@@ -10,8 +11,19 @@ import Gallery from "./pages/Gallery/Gallery.jsx";
 import Contact from "./pages/Contact/Contact.jsx";
 
 import Navbar from "./components/navbar/Navbar.jsx";
+import Loader from "./components/ui/Loader.jsx";
 
 export default function App() {
+  const [loading, setLoading] = useState(true);
+
+  // Simulate engine startup delay
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) return <Loader />;
+
   return (
     <>
       <Navbar />
